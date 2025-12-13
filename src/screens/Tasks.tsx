@@ -15,7 +15,11 @@ export default function Tasks({navigation}:any) {
     deleteTask,
     sort,
     setSort,
-    loadTasksFromStorage
+    loadTasksFromStorage,
+    setFilter,
+    page,
+    setPage,
+    totalPages
   } = useTaskContext();
 
   const [input, setInput] = useState("");
@@ -47,6 +51,13 @@ export default function Tasks({navigation}:any) {
           }
         }}
       />
+
+       {/* Filters */}
+      <View style={styles.allActive}>
+        <Button title="All" onPress={() => setFilter("all")} />
+        <Button title="Active" onPress={() => setFilter("active")} />
+        <Button title="Completed" onPress={() => setFilter("completed")} />
+      </View>
 
       {/* Sort */}
      {tasks && tasks.length > 1 && (
@@ -96,9 +107,28 @@ export default function Tasks({navigation}:any) {
               source={require('../../assets/edit.png')}
             />
             </Pressable>
+
+             
+      
           </View>
         )}}
       />
+      {/* Pagination */}
+      <View style={{ flexDirection: "row", marginTop: 10, justifyContent:'space-evenly' }}>
+        <Button
+          title="Prev"
+          disabled={page <= 1}
+          onPress={() => setPage(page - 1)}
+        />
+        <Text style={{ marginHorizontal: 20 }}>
+          Page {page} / {totalPages}
+        </Text>
+        <Button
+          title="Next"
+          disabled={page >= totalPages}
+          onPress={() => setPage(page + 1)}
+        />
+      </View>
     </View>
   );
 }

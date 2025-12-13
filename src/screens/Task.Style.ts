@@ -38,5 +38,10 @@ image:{
 },
 updateDelete:{
   flex:1
+},
+allActive:{ 
+  flexDirection: "row",
+  justifyContent:'space-around', 
+  marginVertical: 10 
 }
 });
