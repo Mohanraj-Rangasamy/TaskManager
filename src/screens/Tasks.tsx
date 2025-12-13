@@ -114,13 +114,13 @@ export default function Tasks({navigation}:any) {
         )}}
       />
       {/* Pagination */}
-      <View style={{ flexDirection: "row", marginTop: 10, justifyContent:'space-evenly' }}>
+        <View style={styles.paginationContainer}>
         <Button
           title="Prev"
           disabled={page <= 1}
           onPress={() => setPage(page - 1)}
         />
-        <Text style={{ marginHorizontal: 20 }}>
+        <Text style={styles.paginationText}>
           Page {page} / {totalPages}
         </Text>
         <Button

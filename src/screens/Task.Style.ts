@@ -43,5 +43,13 @@ allActive:{
   flexDirection: "row",
   justifyContent:'space-around', 
   marginVertical: 10 
+},
+paginationContainer:{ 
+  flexDirection: "row", 
+  marginTop: 10, 
+  justifyContent:'space-evenly' 
+},
+paginationText:{ 
+  marginHorizontal: 20 
 }
 });
