@@ -1,0 +1,13 @@
+{
+  "common": {
+    "login": "Login",
+    "logout": "Logout",
+    "tasks": "Tasks",
+    "errors": "Errors"
+  },
+  "auth": {
+    "username": "Username",
+    "password": "Password",
+    "required": "All fields are required"
+  }
+}

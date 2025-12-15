@@ -2,8 +2,13 @@ import { useState } from "react";
 import { View, Text, TextInput, Button, StyleSheet } from "react-native";
 import { useAuth } from "../hooks/useAuth";
 import { useErrors } from "../context/ErrorContext";
+import { useTranslation } from "react-i18next";
+import i18n from "../i18n";
 
 export default function SignIn() {
+
+  const { t } = useTranslation();
+
   const { signIn } = useAuth();
   const {logError} = useErrors()
   const [username, setUsername] = useState("");
@@ -32,7 +37,7 @@ export default function SignIn() {
       {error ? <Text style={styles.error}>{error}</Text> : null}
 
       <TextInput
-        placeholder="Username"
+        placeholder={t("auth.username")}
         value={username}
         onChangeText={setUsername}
         style={styles.input}
@@ -40,7 +45,7 @@ export default function SignIn() {
       />
 
       <TextInput
-        placeholder="Password"
+        placeholder={t("auth.password")}
         value={password}
         onChangeText={setPassword}
         style={styles.input}
@@ -48,7 +53,21 @@ export default function SignIn() {
         autoCapitalize="none"
       />
 
-      <Button title="Login" onPress={handleLogin} />
+      <Button title={t("common.login")} onPress={handleLogin} />
+
+      <Text>{'Please select your preferred language'}</Text>
+      <View style={styles.langButton}>
+        
+        <Button
+          title="தமிழ்"
+          onPress={() => i18n.changeLanguage("ta")}
+        />
+      
+        <Button
+          title="English"
+          onPress={() => i18n.changeLanguage("en")}
+        />
+      </View>
     </View>
   );
 }
@@ -74,4 +93,9 @@ const styles = StyleSheet.create({
     color: "red",
     marginBottom: 10,
   },
+  langButton:{
+    flexDirection:'row',
+    justifyContent:'space-around',
+    marginVertical:10
+  }
 });
