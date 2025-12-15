@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Platform,  TouchableOpacity } from "react-native";
 import { useAuth } from "../hooks/useAuth";
 import { useErrors } from "../context/ErrorContext";
 import { useTranslation } from "react-i18next";
@@ -55,8 +55,13 @@ export default function SignIn() {
         autoCapitalize="none"
       />
 
+      {Platform.OS === "android" ? 
       <ReusableButton title={t("common.login")} onPress={handleLogin} />
-
+      : 
+      <TouchableOpacity onPress={handleLogin}>
+          <Text>{t("common.login")}</Text>
+        </TouchableOpacity>
+        }
       <Text>{'Please select your preferred language'}</Text>
       <View style={styles.langButton}>
         
