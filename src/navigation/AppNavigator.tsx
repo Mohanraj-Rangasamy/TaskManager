@@ -1,14 +1,13 @@
-import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Tabs from './Tabs';
 import type { RootStackParamList } from './types';
 import EditTask from '../screens/EditScreen';
+import ErrorsScreen from '../screens/ErrorsScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export default function AppNavigator() {
   return (
-    <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen 
           name="Home" 
@@ -16,7 +15,7 @@ export default function AppNavigator() {
           options={{ headerShown: false }} 
         />
         <Stack.Screen  name="EditTask" component={EditTask} />
+        <Stack.Screen  name="ErrorScreen" component={ErrorsScreen} />
       </Stack.Navigator>
-    </NavigationContainer>
   );
 }

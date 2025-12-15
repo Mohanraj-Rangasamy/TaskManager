@@ -12,7 +12,7 @@ export function useTasks() {
   const [page, setPage] = useState(1);
   const [filter, setFilter] = useState<"all" | "active" | "completed">("all");
   const [sort, setSort] = useState<"asc" | "desc">("asc");
-
+  
   // Load tasks on mount
   useEffect(() => {
     loadTasks().then(setTasks);
