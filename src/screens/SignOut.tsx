@@ -1,12 +1,13 @@
-import { Button, View } from "react-native";
+import { View } from "react-native";
 import { useAuth } from "../hooks/useAuth";
+import ReusableButton from "../components/Reusable_Button";
 
 export default function SignOutScreen() {
   const { signOut } = useAuth();
 
   return (
     <View style={{ padding: 20 }}>
-      <Button title="Sign Out" onPress={signOut} />
+      <ReusableButton title="Sign Out" onPress={signOut} />
     </View>
   );
 }
