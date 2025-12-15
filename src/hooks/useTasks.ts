@@ -9,6 +9,7 @@ const STORAGE_KEY = "tasks";
 
 export function useTasks() {
   const [tasks, setTasks] = useState<Task[]>([]);
+  const [hydrated, setHydrated] = useState(false);
   const [page, setPage] = useState(1);
   const [filter, setFilter] = useState<"all" | "active" | "completed">("all");
   const [sort, setSort] = useState<"asc" | "desc">("asc");
@@ -16,31 +17,31 @@ export function useTasks() {
   // Load tasks on mount
   useEffect(() => {
     loadTasks().then(setTasks);
-  }, []);
-
-   useEffect(() => {
     loadTasksFromStorage();
   }, []);
 
   // Save tasks whenever they change
   useEffect(() => {
+    if (!hydrated) return;
     saveTasks(tasks);
-  }, [tasks]);
+    AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
+  }, [tasks,hydrated]);
+
 
   const addTask = useCallback((title: string) => {
-    const newTask: Task = {
-      id: Date.now().toString(),
-      title,
-      completed: false,
-    };
-    setTasks((prev) => [...prev, newTask]);
-  }, []);
+  setTasks(prev => [
+    ...prev,
+    { id: Date.now().toString(), title, completed: false }
+  ]);
+}, []);
+
 
   const loadTasksFromStorage = async () => {
   try {
     const stored = await AsyncStorage.getItem(STORAGE_KEY);
     if (stored) {
       setTasks(JSON.parse(stored));
+      setHydrated(true);
     }
   } catch (err) {
     console.log("Error loading tasks:", err);

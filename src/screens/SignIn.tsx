@@ -1,9 +1,11 @@
 import { useState } from "react";
-import { View, Text, TextInput, Button, StyleSheet } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import { useAuth } from "../hooks/useAuth";
 import { useErrors } from "../context/ErrorContext";
 import { useTranslation } from "react-i18next";
 import i18n from "../i18n";
+import ReusableButton from "../components/Reusable_Button";
+import ReusableTextInput from "../components/Reusable_textInput";
 
 export default function SignIn() {
 
@@ -36,7 +38,7 @@ export default function SignIn() {
 
       {error ? <Text style={styles.error}>{error}</Text> : null}
 
-      <TextInput
+      <ReusableTextInput
         placeholder={t("auth.username")}
         value={username}
         onChangeText={setUsername}
@@ -44,7 +46,7 @@ export default function SignIn() {
         autoCapitalize="none"
       />
 
-      <TextInput
+      <ReusableTextInput
         placeholder={t("auth.password")}
         value={password}
         onChangeText={setPassword}
@@ -53,17 +55,17 @@ export default function SignIn() {
         autoCapitalize="none"
       />
 
-      <Button title={t("common.login")} onPress={handleLogin} />
+      <ReusableButton title={t("common.login")} onPress={handleLogin} />
 
       <Text>{'Please select your preferred language'}</Text>
       <View style={styles.langButton}>
         
-        <Button
+        <ReusableButton
           title="தமிழ்"
           onPress={() => i18n.changeLanguage("ta")}
         />
       
-        <Button
+        <ReusableButton
           title="English"
           onPress={() => i18n.changeLanguage("en")}
         />

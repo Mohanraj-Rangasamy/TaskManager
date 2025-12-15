@@ -1,8 +1,10 @@
 import  { useState,useEffect } from "react";
-import { View, Text, Button, TextInput, FlatList, Image, Pressable } from "react-native";
+import { View, Text, FlatList, Image, Pressable } from "react-native";
 import { useIsFocused } from "@react-navigation/native";
 import { useTaskContext } from "../context/TaskContext";
 import { styles } from "./Task.Style";
+import ReusableButton from "../components/Reusable_Button";
+import ReusableTextInput from "../components/Reusable_textInput";
 
 
 export default function Tasks({navigation}:any) {
@@ -34,14 +36,14 @@ export default function Tasks({navigation}:any) {
     <View style={styles.container}>
       <Text style={styles.containerText}>Tasks</Text>
 
-      <TextInput
+      <ReusableTextInput
         placeholder="New Task"
         value={input}
         onChangeText={setInput}
         style={styles.addTaskInput}
       />
 
-      <Button
+      <ReusableButton
         title="Add Task"
         onPress={() => {
           if (input.trim()) {
@@ -53,14 +55,14 @@ export default function Tasks({navigation}:any) {
 
        {/* Filters */}
       <View style={styles.allActive}>
-        <Button title="All" onPress={() => setFilter("all")} />
-        <Button title="Active" onPress={() => setFilter("active")} />
-        <Button title="Completed" onPress={() => setFilter("completed")} />
+        <ReusableButton title="All" onPress={() => setFilter("all")} />
+        <ReusableButton title="Active" onPress={() => setFilter("active")} />
+        <ReusableButton title="Completed" onPress={() => setFilter("completed")} />
       </View>
 
       {/* Sort */}
      {tasks && tasks.length > 1 && (
-        <Button
+        <ReusableButton
           title={`Sort (${sort})`}
           onPress={() => setSort(sort === "asc" ? "desc" : "asc")}
         />
@@ -114,7 +116,7 @@ export default function Tasks({navigation}:any) {
       />
       {/* Pagination */}
         <View style={styles.paginationContainer}>
-        <Button
+        <ReusableButton
           title="Prev"
           disabled={page <= 1}
           onPress={() => setPage(page - 1)}
@@ -122,7 +124,7 @@ export default function Tasks({navigation}:any) {
         <Text style={styles.paginationText}>
           Page {page} / {totalPages}
         </Text>
-        <Button
+        <ReusableButton
           title="Next"
           disabled={page >= totalPages}
           onPress={() => setPage(page + 1)}
