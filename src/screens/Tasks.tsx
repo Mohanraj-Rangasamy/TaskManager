@@ -26,7 +26,6 @@ export default function Tasks({navigation}:any) {
 
   useEffect(() => {
     if (isFocused) {
-      console.log("Tasks screen focused → refreshing tasks");
       loadTasksFromStorage(); 
     }
   }, [isFocused]);

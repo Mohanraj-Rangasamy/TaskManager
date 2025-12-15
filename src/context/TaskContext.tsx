@@ -4,7 +4,7 @@ import { useTasks } from "../hooks/useTasks";
 const TaskContext = createContext(null);
 
 export const TaskProvider = ({ children }) => {
-  const taskStore = useTasks(); 
+  const taskStore = useTasks(); // global shared store
   return (
     <TaskContext.Provider value={taskStore}>
       {children}
