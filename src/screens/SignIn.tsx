@@ -34,9 +34,23 @@ export default function SignIn() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Sign In</Text>
+      <Text 
+        accessible ={true}
+        accessibilityRole={'text'} 
+        accessibilityLabel="Sign In" 
+        style={styles.title}
+      >
+        Sign In
+      </Text>
 
-      {error ? <Text style={styles.error}>{error}</Text> : null}
+      {error ? <Text 
+        accessible = {true}
+        accessibilityRole={'text'} 
+        accessibilityLabel={error} 
+        style={styles.error}
+      >
+        {error}
+      </Text> : null}
 
       <ReusableTextInput
         placeholder={t("auth.username")}

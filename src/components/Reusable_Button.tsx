@@ -1,4 +1,4 @@
-import {Button} from 'react-native'
+import {Button,View} from 'react-native'
 
 interface buttonProps{
     title:string,
@@ -11,11 +11,17 @@ const ReusableButton = (props:Partial<buttonProps>) => {
     const {title,onPress,disabled} = props;
 
     return(
-        <Button
-            title={title}
-            onPress={onPress}
-            disabled = {disabled}
-        />
+        <View 
+            accessible={true}
+            accessibilityRole={'button'}
+            accessibilityLabel={title}
+        >
+            <Button
+                title={title}
+                onPress={onPress}
+                disabled = {disabled}
+            />
+        </View>
     )
 }
 export default ReusableButton;

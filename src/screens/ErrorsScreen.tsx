@@ -1,4 +1,4 @@
-import { View, Text, FlatList } from "react-native";
+import { View, Text, FlatList, StyleSheet } from "react-native";
 import { useErrors } from "../context/ErrorContext";
 import { useAuth } from "../hooks/useAuth";
 
@@ -12,8 +12,13 @@ export default function ErrorsScreen({ navigation }) {
   }
 
   return (
-    <View style={{ padding: 20, flex: 1 }}>
-      <Text style={{ fontSize: 22, fontWeight: "bold", marginBottom: 10 }}>
+    <View style={styles.container}>
+      <Text 
+        style={styles.errorText}
+        accessible={true}
+        accessibilityRole={'text'}
+        accessibilityLabel="Logged Errors"
+      >
         Logged Errors
       </Text>
 
@@ -25,16 +30,23 @@ export default function ErrorsScreen({ navigation }) {
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => (
             <View
-              style={{
-                padding: 12,
-                marginVertical: 5,
-                borderWidth: 1,
-                borderColor: "#ccc",
-                borderRadius: 6,
-              }}
-            >
-              <Text style={{ fontWeight: "bold" }}>{item.message}</Text>
-              <Text style={{ color: "gray" }}>{item.time}</Text>
+              style={styles.listItem}>
+              <Text 
+                style={styles.listTextOne}
+                accessible={true}
+                accessibilityRole={'text'}
+                accessibilityLabel={item.message}
+                >
+                  {item.message}
+                </Text>
+              <Text 
+                style={styles.listTextTwo}
+                accessible={true}
+                accessibilityRole={'text'}
+                accessibilityLabel={item.time}
+              >
+                {item.time}
+              </Text>
             </View>
           )}
         />
@@ -42,3 +54,28 @@ export default function ErrorsScreen({ navigation }) {
     </View>
   );
 }
+
+const styles =  StyleSheet.create({
+  container:{ 
+    padding: 20, 
+    flex: 1 
+  },
+  errorText:{ 
+    fontSize: 22, 
+    fontWeight: "bold", 
+    marginBottom: 10 
+  },
+  listItem:{
+    padding: 12,
+    marginVertical: 5,
+    borderWidth: 1,
+    borderColor: "#ccc",
+    borderRadius: 6,
+  },
+listTextOne:{ 
+  fontWeight: "bold" 
+},
+listTextTwo:{ 
+  color: "gray" 
+}
+})

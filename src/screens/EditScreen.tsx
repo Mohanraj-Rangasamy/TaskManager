@@ -19,9 +19,16 @@ export default function EditTask({ route, navigation }: any) {
 }, [task]);
 
   return (
-    <View style={styles.editScreen}>
-      <Text>Edit Task</Text>
-
+    <View 
+      accessible = {true} 
+      style={styles.editScreen}
+    >
+      <Text 
+        accessibilityLabel={'edit task'} 
+        accessibilityRole={'text'} 
+      >
+        Edit Task
+      </Text>
       <ReusableTextInput
         value={title}
         onChangeText={setTitle}
