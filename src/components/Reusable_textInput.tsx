@@ -14,6 +14,8 @@ const ReusableTextInput = (props:Partial<textInputProps>) => {
     const {value,onChangeText,placeholder,secureTextEntry,style,autoCapitalize} = props;
     return(
         <TextInput
+            accessible={true}
+            accessibilityLabel={value ? value : placeholder}
             value={value}
             onChangeText={onChangeText}
             placeholder={placeholder}

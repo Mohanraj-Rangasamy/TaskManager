@@ -80,6 +80,7 @@ export default function Tasks({navigation}:any) {
             
             <Text
               onPress={() => toggleTask(item.id)}
+              accessible
               style={[
               styles.listText,
               { textDecorationLine: item.completed ? "line-through" : "none" }
@@ -89,21 +90,27 @@ export default function Tasks({navigation}:any) {
               {item.title}
             </Text>
             <Pressable 
+              accessible={true}
+              accessibilityRole={'image'}
+              accessibilityLabel={'task update icon'}
               style={styles.updateDelete}
               onPress={()=>deleteTask(item.id)}  
             >
             <Image
-            resizeMode='contain'
+              resizeMode='contain'
               style={styles.image}
               source={require('../../assets/delete_1.png')}
             />
             </Pressable>
              <Pressable 
+              accessible={true}
+              accessibilityRole={'image'}
+              accessibilityLabel={'task Delete icon'}
               style={styles.updateDelete}
               onPress={() =>navigation.navigate("EditTask", { id: item.id })}  
             >
             <Image
-              resizeMode='cover'
+              resizeMode='contain'
               style={styles.image}
               source={require('../../assets/edit.png')}
             />
