@@ -10,6 +10,10 @@ container: {
 containerText:{ 
     fontSize: 20 
 },
+newUITag:{
+    marginTop:5,
+    fontSize:16,  
+},
 addTaskInput:{ 
     borderWidth: 1, 
     marginTop: 10, 

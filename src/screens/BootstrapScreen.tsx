@@ -2,12 +2,14 @@ import { useEffect } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { useErrors } from "../context/ErrorContext";
 import { fetchInitialData } from "../api/initApi";
+import { initRemoteConfig } from "../services/remoteConfig";
 
 export default function BootstrapScreen({navigation}) {
   const { logError,errors } = useErrors();
   useEffect(() => {
     (async () => {
       try {
+        await initRemoteConfig();
         await fetchInitialData();
         navigation.navigate("Home"); 
       } catch (err: any) {
