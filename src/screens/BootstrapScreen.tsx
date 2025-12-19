@@ -1,15 +1,16 @@
 import { useEffect } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
+import { Text } from "react-native-paper";
 import { useErrors } from "../context/ErrorContext";
 import { fetchInitialData } from "../api/initApi";
-import { initRemoteConfig } from "../services/remoteConfig";
+// import { initRemoteConfig } from "../services/remoteConfig";
 
 export default function BootstrapScreen({navigation}) {
   const { logError,errors } = useErrors();
   useEffect(() => {
     (async () => {
       try {
-        await initRemoteConfig();
+        // await initRemoteConfig();
         await fetchInitialData();
         navigation.navigate("Home"); 
       } catch (err: any) {
@@ -20,7 +21,7 @@ export default function BootstrapScreen({navigation}) {
 
   return (
     <View style={styles.container} >
-        <Text style={styles.text}>{errors.message }</Text>
+        <Text variant="displayLarge" >{errors.message }</Text>
     </View>
   )
 }

@@ -1,16 +1,18 @@
 import  { useState,useEffect } from "react";
-import { View, Text, FlatList, Image, Pressable } from "react-native";
+import { View, FlatList, Image, Pressable } from "react-native";
+import { Text, useTheme  } from "react-native-paper";
 import { useIsFocused } from "@react-navigation/native";
 import { useTaskContext } from "../context/TaskContext";
 import { styles } from "./Task.Style";
 import ReusableButton from "../components/Reusable_Button";
 import ReusableTextInput from "../components/Reusable_textInput";
-import { getEnableNewUI } from "../services/remoteConfig";
+// import { getEnableNewUI } from "../services/remoteConfig";
 
 
 export default function Tasks({navigation}:any) {
-  const showNewUI = getEnableNewUI();
+  // const showNewUI = getEnableNewUI();
   const isFocused = useIsFocused();
+  const { colors } = useTheme();
   const {
     tasks,
     addTask,
@@ -35,8 +37,8 @@ export default function Tasks({navigation}:any) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.containerText}>Tasks</Text>
-      {showNewUI && <Text style={styles.newUITag}>New UI Enabled</Text>}
+      <Text variant="displayLarge" style={{ color: colors.primary }}>Tasks</Text>
+      {/* {showNewUI && <Text style={styles.newUITag}>New UI Enabled</Text>} */}
       <ReusableTextInput
         placeholder="New Task"
         value={input}
