@@ -7,6 +7,7 @@ import { ErrorProvider } from "./src/context/ErrorContext";
 import { NavigationContainer } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import i18n from "./src/i18n";
+import { ThemeProvider } from "./src/context/ThemeContext";
 
 export default function App() {
   useEffect(() => {
@@ -18,6 +19,7 @@ export default function App() {
 }, []);
   return (
     <NavigationContainer>
+      <ThemeProvider>
       <AuthProvider>
         <TaskProvider>
           <ErrorProvider>
@@ -25,6 +27,7 @@ export default function App() {
           </ErrorProvider>
         </TaskProvider>
       </AuthProvider>
+      </ThemeProvider>
     </NavigationContainer>
   );
 }
