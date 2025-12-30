@@ -28,7 +28,14 @@
       "favicon": "./assets/favicon.png"
     },
     "plugins": [
-      "expo-localization"
+      "expo-localization",
+      [
+        "expo-datadog",
+        {
+          "site": "US1",
+          "nativeLogsVerbosity": "DEBUG"
+        }
+      ]
     ]
   }
 }
