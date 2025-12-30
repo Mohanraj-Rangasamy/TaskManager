@@ -9,7 +9,8 @@
     "web": "expo start --web"
   },
   "dependencies": {
-    "@datadog/mobile-react-native": "^2.14.0",
+    "@datadog/mobile-react-native": "2.14.0",
+    "@datadog/mobile-react-navigation": "2.14.0",
     "@react-native-async-storage/async-storage": "2.2.0",
     "@react-navigation/bottom-tabs": "^7.8.12",
     "@react-navigation/native": "^7.1.25",
@@ -33,6 +34,7 @@
     "react-native-worklets-core": "^1.6.2"
   },
   "devDependencies": {
+    "@datadog/datadog-ci": "5.1.0",
     "@types/react": "~19.1.0",
     "babel-preset-expo": "^54.0.8",
     "typescript": "~5.9.2"
