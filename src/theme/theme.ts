@@ -9,6 +9,7 @@ export const lightTheme = {
     error: "#B00020",
     background: "#FFFFFF",
     surface: "#FFFFFF",
+    inputBackground: "#ccc",
   },
   fonts: {
     ...MD3LightTheme.fonts,
