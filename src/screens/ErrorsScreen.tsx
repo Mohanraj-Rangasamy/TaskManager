@@ -21,8 +21,8 @@ export default function ErrorsScreen({ navigation }) {
       >
         Logged Errors
       </Text>
-
-      {errors.length === 0 ? (
+      
+      {errors.message === '' ? (
         <Text>No errors logged yet.</Text>
       ) : (
         <FlatList
