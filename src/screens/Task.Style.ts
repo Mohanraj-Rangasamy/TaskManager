@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import { typography } from "../theme/theme";
 
 export const styles = StyleSheet.create({
 
@@ -8,7 +9,11 @@ container: {
     borderRadius:8 
 },
 containerText:{ 
-    fontSize: 20 
+    fontSize: typography.textLarge.fontSize
+},
+newUITag:{
+    marginTop:5,
+    fontSize: typography.bodyMedium.fontSize
 },
 addTaskInput:{ 
     borderWidth: 1, 
