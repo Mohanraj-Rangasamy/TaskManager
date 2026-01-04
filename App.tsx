@@ -4,7 +4,7 @@ import AppNavigator from "./src/navigation/AppNavigator";
 import { TaskProvider } from "./src/context/TaskContext";
 import { AuthProvider } from "./src/hooks/useAuth";
 import { ErrorProvider } from "./src/context/ErrorContext";
-import { NavigationContainer, useNavigationContainerRef } from "@react-navigation/native";
+import { NavigationContainer } from "@react-navigation/native";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import i18n from "./src/i18n";
@@ -14,7 +14,6 @@ import { SHOW_STORYBOOK } from './.rnstorybook/storybook.config';
 const StorybookUI = SHOW_STORYBOOK ? require('./.rnstorybook').default : null;
 
 export default function App() {
-  const navigationRef = useNavigationContainerRef();
 
 
   useEffect(() => {

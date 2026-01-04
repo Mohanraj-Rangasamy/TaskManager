@@ -19,6 +19,26 @@ export const lightTheme = {
       fontSize: 32,
       lineHeight: 40,
     },
+   
+  },
+};
+
+export const darkTheme = {
+  ...MD3DarkTheme,
+};
+
+export const typography = {
+    displayLarge: {
+      fontFamily: "System",
+      fontWeight: "700",
+      fontSize: 32,
+      lineHeight: 40,
+    },
+    textLarge: {
+      fontFamily: "System",
+      fontWeight: "600",
+      fontSize: 20,
+    },
     titleMedium: {
       fontFamily: "System",
       fontWeight: "600",
@@ -26,11 +46,6 @@ export const lightTheme = {
     },
     bodyMedium: {
       fontFamily: "System",
-      fontSize: 14,
+      fontSize: 16,
     },
-  },
-};
-
-export const darkTheme = {
-  ...MD3DarkTheme,
-};
+  }
