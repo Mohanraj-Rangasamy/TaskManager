@@ -4,6 +4,8 @@ import { useIsFocused } from "@react-navigation/native";
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useTaskContext } from "../context/TaskContext";
 import TasksView from "./TaskView"; 
+import { loadTasks } from "../services/taskStorage";
+import { useAuth } from "../hooks/useAuth";
 
 type RootStackParamList = {
   Tasks: undefined;             
@@ -21,20 +23,23 @@ export default function Task({ navigation }: Props) {
   const {
     tasks, 
     addTask, 
+    setTasks,
     toggleTask, 
     deleteTask, 
     sort, 
     setSort, 
-    loadTasksFromStorage, 
     setFilter, 
     page, 
     setPage, 
     totalPages
   } = useTaskContext();
 
+  const { user } = useAuth();
+  const userId = user?.id || "guest";
+
   useEffect(() => {
-    if (isFocused)loadTasksFromStorage();
-  }, [isFocused, loadTasksFromStorage]);
+    if (isFocused)loadTasks(userId).then(setTasks)
+  }, [isFocused, loadTasks]);
 
   const handleAddTask = useCallback(() => {
     if (input.trim()) {
