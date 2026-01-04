@@ -1,142 +1,69 @@
-import  { useState,useEffect } from "react";
-import { View, Text, FlatList, Image, Pressable } from "react-native";
+import  { useState, useEffect, useCallback } from "react";
+import { useTheme } from "react-native-paper";
 import { useIsFocused } from "@react-navigation/native";
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useTaskContext } from "../context/TaskContext";
-import { styles } from "./Task.Style";
-import ReusableButton from "../components/Reusable_Button";
-import ReusableTextInput from "../components/Reusable_textInput";
+import TasksView from "./TaskView"; 
 
+type RootStackParamList = {
+  Tasks: undefined;             
+  TaskDetail: { id: string };   
+  EditTask: { id: string }; // Added this based on your navigation call
+};
 
-export default function Tasks({navigation}:any) {
+type Props = NativeStackScreenProps<RootStackParamList, 'Tasks'>;
 
-  const isFocused = useIsFocused()
+export default function Task({ navigation }: Props) {
+  const isFocused = useIsFocused();
+  const { colors } = useTheme();
+  const [input, setInput] = useState("");
+  
   const {
-    tasks,
-    addTask,
-    toggleTask,
-    deleteTask,
-    sort,
-    setSort,
-    loadTasksFromStorage,
-    setFilter,
-    page,
-    setPage,
+    tasks, 
+    addTask, 
+    toggleTask, 
+    deleteTask, 
+    sort, 
+    setSort, 
+    loadTasksFromStorage, 
+    setFilter, 
+    page, 
+    setPage, 
     totalPages
   } = useTaskContext();
 
-  const [input, setInput] = useState("");
-
   useEffect(() => {
-    if (isFocused) {
-      loadTasksFromStorage(); 
+    if (isFocused)loadTasksFromStorage();
+  }, [isFocused, loadTasksFromStorage]);
+
+  const handleAddTask = useCallback(() => {
+    if (input.trim()) {
+      addTask(input);
+      setInput("");
     }
-  }, [isFocused]);
+  }, [input, addTask]);
+
+  const handleEditTask = (id: string) => {
+    navigation.navigate("EditTask", { id });
+  };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.containerText}>Tasks</Text>
-
-      <ReusableTextInput
-        placeholder="New Task"
-        value={input}
-        onChangeText={setInput}
-        style={styles.addTaskInput}
-      />
-
-      <ReusableButton
-        title="Add Task"
-        onPress={() => {
-          if (input.trim()) {
-            addTask(input);
-            setInput("");
-          }
-        }}
-      />
-
-       {/* Filters */}
-      <View style={styles.allActive}>
-        <ReusableButton title="All" onPress={() => setFilter("all")} />
-        <ReusableButton title="Active" onPress={() => setFilter("active")} />
-        <ReusableButton title="Completed" onPress={() => setFilter("completed")} />
-      </View>
-
-      {/* Sort */}
-     {tasks && tasks.length > 1 && (
-        <ReusableButton
-          title={`Sort (${sort})`}
-          onPress={() => setSort(sort === "asc" ? "desc" : "asc")}
-        />
-      )}
-
-
-      <FlatList
-        data={tasks}
-        keyExtractor={(t) => t.id}
-        renderItem={({ item }) => {
-        return (
-          <View
-            style={styles.listItem}
-          >
-            
-            <Text
-              onPress={() => toggleTask(item.id)}
-              accessible
-              style={[
-              styles.listText,
-              { textDecorationLine: item.completed ? "line-through" : "none" }
-            ]}
-
-            >
-              {item.title}
-            </Text>
-            <Pressable 
-              accessible={true}
-              accessibilityRole={'image'}
-              accessibilityLabel={'task update icon'}
-              style={styles.updateDelete}
-              onPress={()=>deleteTask(item.id)}  
-            >
-            <Image
-              resizeMode='contain'
-              style={styles.image}
-              source={require('../../assets/delete_1.png')}
-            />
-            </Pressable>
-             <Pressable 
-              accessible={true}
-              accessibilityRole={'image'}
-              accessibilityLabel={'task Delete icon'}
-              style={styles.updateDelete}
-              onPress={() =>navigation.navigate("EditTask", { id: item.id })}  
-            >
-            <Image
-              resizeMode='contain'
-              style={styles.image}
-              source={require('../../assets/edit.png')}
-            />
-            </Pressable>
-
-             
-      
-          </View>
-        )}}
-      />
-      {/* Pagination */}
-        <View style={styles.paginationContainer}>
-        <ReusableButton
-          title="Prev"
-          disabled={page <= 1}
-          onPress={() => setPage(page - 1)}
-        />
-        <Text style={styles.paginationText}>
-          Page {page} / {totalPages}
-        </Text>
-        <ReusableButton
-          title="Next"
-          disabled={page >= totalPages}
-          onPress={() => setPage(page + 1)}
-        />
-      </View>
-    </View>
+    <TasksView
+      tasks={tasks}
+      input={input}
+      setInput={setInput}
+      colors={colors}
+      sort={sort}
+      page={page}
+      totalPages={totalPages}
+      onAddTask={handleAddTask}
+      onToggleTask={toggleTask}
+      onDeleteTask={deleteTask}
+      onEditTask={handleEditTask}
+      onSetFilter={setFilter}
+      onToggleSort={() => setSort(sort === "asc" ? "desc" : "asc")}
+      onPrevPage={() => setPage(page - 1)}
+      onNextPage={() => setPage(page + 1)}
+    />
   );
 }
