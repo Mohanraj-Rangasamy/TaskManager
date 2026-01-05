@@ -1,93 +1,66 @@
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useMemo } from "react";
 import { Task } from "../types/task";
 import { loadTasks, saveTasks } from "../services/taskStorage";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const PAGE_SIZE = 5;
 
-const STORAGE_KEY = "tasks";
 
-export function useTasks() {
+export function useTasks(userId: string = "default_user") {
   const [tasks, setTasks] = useState<Task[]>([]);
-  const [hydrated, setHydrated] = useState(false);
+  const [hasTasksLoaded, setHasTasksLoaded] = useState(false);
   const [page, setPage] = useState(1);
   const [filter, setFilter] = useState<"all" | "active" | "completed">("all");
   const [sort, setSort] = useState<"asc" | "desc">("asc");
-  
-  // Load tasks on mount
-  useEffect(() => {
-    loadTasks().then(setTasks);
-    loadTasksFromStorage();
-  }, []);
 
-  // Save tasks whenever they change
-  useEffect(() => {
-    if (!hydrated) return;
-    saveTasks(tasks);
-    AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
-  }, [tasks,hydrated]);
+  const loadFromStorage = useCallback(async () => {
+    const stored = await loadTasks(userId);
+    setTasks(stored);
+    setHasTasksLoaded(true);
+  }, [userId]);
 
+  useEffect(() => {
+    loadFromStorage();
+  }, [loadFromStorage]);
+
+  useEffect(() => {
+    if (hasTasksLoaded) {
+      saveTasks(tasks, userId);
+    }
+  }, [tasks, hasTasksLoaded, userId]);
 
   const addTask = useCallback((title: string) => {
-  setTasks(prev => [
-    ...prev,
-    { id: Date.now().toString(), title, completed: false }
-  ]);
-}, []);
-
-
-  const loadTasksFromStorage = async () => {
-  try {
-    const stored = await AsyncStorage.getItem(STORAGE_KEY);
-    if (stored) {
-      setTasks(JSON.parse(stored));
-      setHydrated(true);
-    }
-  } catch (err) {
-    console.log("Error loading tasks:", err);
-  }
-};
-
+    setTasks(prev => [...prev, { id: Date.now().toString(), title, completed: false }]);
+  }, []);
 
   const toggleTask = useCallback((id: string) => {
-    setTasks((prev) =>
-      prev.map((t) =>
-        t.id === id ? { ...t, completed: !t.completed } : t
-      )
-    );
+    setTasks(prev => prev.map(t => t.id === id ? { ...t, completed: !t.completed } : t));
   }, []);
-
-   const updateTask = useCallback(async (id: string, updates: Partial<Task>) => {
- 
-    const updated = tasks.map(task =>
-      task.id === id ? { ...task, ...updates } : task
-    );
-
-    await saveTasks(updated);
-  }, [tasks]);
 
   const deleteTask = useCallback((id: string) => {
-    setTasks((prev) => prev.filter((t) => t.id !== id));
+    setTasks(prev => prev.filter(t => t.id !== id));
   }, []);
 
-  // Apply filter
-  const filtered = tasks.filter((t) => {
-    if (filter === "active") return !t.completed;
-    if (filter === "completed") return t.completed;
-    return true;
-  });
+  const updateTask = useCallback((id: string, updates: Partial<Task>) => {
+    setTasks(prev => prev.map(t => t.id === id ? { ...t, ...updates } : t));
+  }, []);
 
-  // Apply sorting
-  const sorted = [...filtered].sort((a, b) => {
-    return sort === "asc"
-      ? a.title.localeCompare(b.title)
-      : b.title.localeCompare(a.title);
-  });
+  const filteredAndSorted = useMemo(() => {
+    const result = tasks.filter(t => {
+      if (filter === "active") return !t.completed;
+      if (filter === "completed") return t.completed;
+      return true;
+    });
 
-  // Apply pagination
-  const paginated = sorted.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
+    return result.sort((a, b) => 
+      sort === "asc" ? a.title.localeCompare(b.title) : b.title.localeCompare(a.title)
+    );
+  }, [tasks, filter, sort]);
 
-  const totalPages = Math.ceil(sorted.length / PAGE_SIZE);
+  const paginated = useMemo(() => {
+    return filteredAndSorted.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
+  }, [filteredAndSorted, page]);
+
+  const totalPages = Math.ceil(filteredAndSorted.length / PAGE_SIZE);
 
   return {
     tasks: paginated,
@@ -102,6 +75,6 @@ export function useTasks() {
     setFilter,
     sort,
     setSort,
-    loadTasksFromStorage,
+    loadTasksFromStorage: loadFromStorage,
   };
 }

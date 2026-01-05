@@ -1,22 +1,28 @@
 import { View, Text } from "react-native";
 import { useTasks } from "../hooks/useTasks";
-import { useState,useEffect } from "react";
+import { useState,useEffect,useMemo, useCallback } from "react";
 import { styles } from "./Task.Style";
-import ReusableButton from "../components/Reusable_Button";
-import ReusableTextInput from "../components/Reusable_textInput";
+import {ReusableButton,ReusableTextInput} from "@components";
 
 
 export default function EditTask({ route, navigation }: any) {
   const { id } = route.params;
   const { tasks, updateTask } = useTasks();
 
-  const task = tasks.find((t) => t.id === id);
+  const task = useMemo(() => {
+    return tasks.find((t) => t.id === id);
+  }, [tasks, id])
     
   const [title, setTitle] = useState(task?.title);
 
   useEffect(() => {
   if (task) setTitle(task.title);
 }, [task]);
+
+const handlePress = useCallback(() => {
+    updateTask(id, { title });
+    navigation.goBack();
+},[id,title])
 
   return (
     <View 
@@ -30,6 +36,7 @@ export default function EditTask({ route, navigation }: any) {
         Edit Task
       </Text>
       <ReusableTextInput
+        accessible={true}
         value={title}
         onChangeText={setTitle}
         style={styles.editScreenInput}
@@ -37,10 +44,7 @@ export default function EditTask({ route, navigation }: any) {
 
       <ReusableButton
         title="Save"
-        onPress={() => {
-          updateTask(id, { title });
-            navigation.goBack();
-        }}
+        onPress={handlePress}
       />
     </View>
   );

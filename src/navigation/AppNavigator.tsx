@@ -3,12 +3,18 @@ import Tabs from './Tabs';
 import type { RootStackParamList } from './types';
 import EditTask from '../screens/EditScreen';
 import ErrorsScreen from '../screens/ErrorsScreen';
+import BootstrapScreen from '../screens/BootstrapScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export default function AppNavigator() {
   return (
       <Stack.Navigator>
+         <Stack.Screen
+        name="Bootstrap"
+        component={BootstrapScreen}
+        options={{ headerShown: false }}
+      />
         <Stack.Screen 
           name="Home" 
           component={Tabs} 

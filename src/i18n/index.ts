@@ -11,7 +11,6 @@ const resources = {
   ta: { translation: tn },
 };
 
-// 🔥 DO NOT make this async
 i18n.use(initReactI18next).init({
   compatibilityJSON: "v3",
   resources,
@@ -22,9 +21,8 @@ i18n.use(initReactI18next).init({
   },
 });
 
-// Persist language AFTER init
 i18n.on("languageChanged", (lng) => {
   AsyncStorage.setItem("lang", lng);
 });
 
-export default i18n;
+export { i18n };
