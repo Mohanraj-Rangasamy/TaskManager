@@ -1,4 +1,11 @@
-import users from "./mockUsers.json";
+import { User } from "../types/user";
+import { createUserMock } from "../__mocks__/factories";
+
+// Generate our "database" using the factory
+const mockUsers: User[] = [
+  createUserMock({ id: "1", username: "admin", password: "admin123", role: "admin" }),
+  createUserMock({ id: "2", username: "user", password: "user123", role: "user" }),
+];
 
 export interface LoginPayload {
   username: string;
@@ -8,7 +15,8 @@ export interface LoginPayload {
 export function loginApi({ username, password }: LoginPayload) {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
-      const user = users.find(
+      
+      const user = mockUsers.find(
         (u) => u.username === username && u.password === password
       );
 
@@ -19,7 +27,7 @@ export function loginApi({ username, password }: LoginPayload) {
       if (username === "error") {
         return reject({ message: "Backend failed. Try again later.", status: 500 });
       }
-
+      
       return resolve({
         id: user.id,
         username: user.username,
@@ -28,4 +36,3 @@ export function loginApi({ username, password }: LoginPayload) {
     }, 900);
   });
 }
-
