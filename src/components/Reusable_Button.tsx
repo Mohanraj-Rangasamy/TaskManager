@@ -1,3 +1,4 @@
+import { AccessibilityRole } from '../types/task';
 import {Button,View} from 'react-native'
 
 interface buttonProps{
@@ -11,12 +12,11 @@ const ReusableButton = (props:Partial<buttonProps>) => {
     const {title,onPress,disabled} = props;
 
     return(
-        <View 
-            accessible={true}
-            accessibilityRole={'button'}
-            accessibilityLabel={title}
-        >
+        <View>
             <Button
+                accessible={true}
+                accessibilityRole={AccessibilityRole.BUTTON}
+                accessibilityLabel={title}
                 title={title}
                 onPress={onPress}
                 disabled = {disabled}
