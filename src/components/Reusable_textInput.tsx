@@ -6,15 +6,16 @@ interface textInputProps{
     placeholder:string,
     secureTextEntry:boolean,
     style:object,
+    accessible:boolean,
     autoCapitalize:"none" | "sentences" | "words" | "characters" | undefined
 }
 
 const ReusableTextInput = (props:Partial<textInputProps>) => {
 
-    const {value,onChangeText,placeholder,secureTextEntry,style,autoCapitalize} = props;
+    const {value,onChangeText,placeholder,secureTextEntry,style,autoCapitalize,accessible} = props;
     return(
         <TextInput
-            accessible={true}
+            accessible={accessible}
             accessibilityLabel={value ? value : placeholder}
             value={value}
             onChangeText={onChangeText}

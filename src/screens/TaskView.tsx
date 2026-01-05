@@ -1,8 +1,7 @@
 import { View, FlatList, Image, Pressable } from "react-native";
 import { Text } from "react-native-paper";
 import { styles } from "./Task.Style";
-import ReusableButton from "../components/Reusable_Button";
-import ReusableTextInput from "../components/Reusable_textInput";
+import {ReusableButton,ReusableTextInput} from "@components";
 
 export interface TaskItem {
   id: string;

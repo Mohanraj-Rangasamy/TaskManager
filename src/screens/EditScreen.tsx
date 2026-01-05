@@ -2,8 +2,7 @@ import { View, Text } from "react-native";
 import { useTasks } from "../hooks/useTasks";
 import { useState,useEffect,useMemo, useCallback } from "react";
 import { styles } from "./Task.Style";
-import ReusableButton from "../components/Reusable_Button";
-import ReusableTextInput from "../components/Reusable_textInput";
+import {ReusableButton,ReusableTextInput} from "@components";
 
 
 export default function EditTask({ route, navigation }: any) {
@@ -37,6 +36,7 @@ const handlePress = useCallback(() => {
         Edit Task
       </Text>
       <ReusableTextInput
+        accessible={true}
         value={title}
         onChangeText={setTitle}
         style={styles.editScreenInput}

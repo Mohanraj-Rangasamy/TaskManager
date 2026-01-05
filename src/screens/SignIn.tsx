@@ -4,8 +4,7 @@ import { useAuth } from "../hooks/useAuth";
 import { useErrors } from "../context/ErrorContext";
 import { useTranslation } from "react-i18next";
 import {i18n} from "../i18n";
-import ReusableButton from "../components/Reusable_Button";
-import ReusableTextInput from "../components/Reusable_textInput";
+import {ReusableButton,ReusableTextInput} from "@components";
 import { useAppTheme } from "../context/ThemeContext";
 import { useTheme } from "react-native-paper";
 

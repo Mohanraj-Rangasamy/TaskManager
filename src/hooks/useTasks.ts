@@ -7,7 +7,7 @@ const PAGE_SIZE = 5;
 
 export function useTasks(userId: string = "default_user") {
   const [tasks, setTasks] = useState<Task[]>([]);
-  const [hydrated, setHydrated] = useState(false);
+  const [hasTasksLoaded, setHasTasksLoaded] = useState(false);
   const [page, setPage] = useState(1);
   const [filter, setFilter] = useState<"all" | "active" | "completed">("all");
   const [sort, setSort] = useState<"asc" | "desc">("asc");
@@ -15,7 +15,7 @@ export function useTasks(userId: string = "default_user") {
   const loadFromStorage = useCallback(async () => {
     const stored = await loadTasks(userId);
     setTasks(stored);
-    setHydrated(true);
+    setHasTasksLoaded(true);
   }, [userId]);
 
   useEffect(() => {
@@ -23,10 +23,10 @@ export function useTasks(userId: string = "default_user") {
   }, [loadFromStorage]);
 
   useEffect(() => {
-    if (hydrated) {
+    if (hasTasksLoaded) {
       saveTasks(tasks, userId);
     }
-  }, [tasks, hydrated, userId]);
+  }, [tasks, hasTasksLoaded, userId]);
 
   const addTask = useCallback((title: string) => {
     setTasks(prev => [...prev, { id: Date.now().toString(), title, completed: false }]);
