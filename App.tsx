@@ -1,4 +1,4 @@
-import "./src/i18n";
+
 import { useEffect } from "react";
 import AppNavigator from "./src/navigation/AppNavigator";
 import { TaskProvider } from "./src/context/TaskContext";
@@ -7,7 +7,7 @@ import { ErrorProvider } from "./src/context/ErrorContext";
 import { NavigationContainer } from "@react-navigation/native";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import i18n from "./src/i18n";
+import {i18n} from "./src/i18n";
 import { ThemeProvider } from "./src/context/ThemeContext"; 
 import { SHOW_STORYBOOK } from './.rnstorybook/storybook.config';
 

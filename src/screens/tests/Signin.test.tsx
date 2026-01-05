@@ -2,7 +2,7 @@ import { render, fireEvent, waitFor } from "@testing-library/react-native";
 import SignIn from "../SignIn";
 import { useAuth } from "../../hooks/useAuth";
 import { useErrors } from "../../context/ErrorContext";
-import i18n from "../../i18n";
+import {i18n} from "../../i18n";
 import { Platform } from "react-native";
 
 
