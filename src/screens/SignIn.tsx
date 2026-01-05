@@ -7,9 +7,11 @@ import {i18n} from "../i18n";
 import {ReusableButton,ReusableTextInput} from "@components";
 import { useAppTheme } from "../context/ThemeContext";
 import { useTheme } from "react-native-paper";
+import { useDevice } from "../hooks";
 
 
 export default function SignIn() {
+  const { isAndroid } = useDevice();
   const { isDark, toggleTheme } = useAppTheme();
   const { colors } = useTheme();
 
@@ -73,7 +75,7 @@ export default function SignIn() {
         autoCapitalize="none"
       />
 
-      {Platform.OS === "android" ? 
+      {isAndroid ? 
       <ReusableButton title={t("common.login")} onPress={handleLogin} />
       : 
       <TouchableOpacity onPress={handleLogin}>
