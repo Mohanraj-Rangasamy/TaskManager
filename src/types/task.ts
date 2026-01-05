@@ -12,3 +12,15 @@ export enum StorageKeys {
   THEME = 'theme_preference',
   TASKS_PREFIX = '@MyApp:tasks_'
 }
+
+export enum AccessibilityRole {
+  BUTTON = 'button',
+  HEADER = 'header',
+  LINK = 'link',
+  IMAGE = 'image',
+  IMAGEBUTTON = 'imagebutton',
+  TEXT = 'text',
+  NONE = 'none',
+  SEARCH = 'search',
+  ADJUSTABLE = 'adjustable',
+}

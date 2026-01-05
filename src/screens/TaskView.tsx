@@ -2,6 +2,7 @@ import { View, FlatList, Image, Pressable } from "react-native";
 import { Text } from "react-native-paper";
 import { styles } from "./Task.Style";
 import {ReusableButton,ReusableTextInput} from "@components";
+import { AccessibilityRole } from "../types/task";
 
 export interface TaskItem {
   id: string;
@@ -49,7 +50,7 @@ export default function TasksView(props: TasksViewProps) {
             <Pressable 
                 accessible={true}
                 accessibilityLabel={'delete task'}
-                accessibilityRole={'imagebutton'}
+                accessibilityRole={AccessibilityRole.IMAGEBUTTON}
                 style={styles.updateDelete} 
                 onPress={() => onDeleteTask(item.id)}
             >
@@ -59,7 +60,7 @@ export default function TasksView(props: TasksViewProps) {
             <Pressable 
                 accessible={true}
                 accessibilityLabel={'edit task'}
-                accessibilityRole={'imagebutton'}
+                accessibilityRole={AccessibilityRole.IMAGEBUTTON}
                 style={styles.updateDelete} 
                 onPress={() => 
                 onEditTask(item.id)}

@@ -3,6 +3,7 @@ import { useTasks } from "../hooks/useTasks";
 import { useState,useEffect,useMemo, useCallback } from "react";
 import { styles } from "./Task.Style";
 import {ReusableButton,ReusableTextInput} from "@components";
+import { AccessibilityRole } from "../types/task";
 
 
 export default function EditTask({ route, navigation }: any) {
@@ -31,7 +32,7 @@ const handlePress = useCallback(() => {
     >
       <Text 
         accessibilityLabel={'edit task'} 
-        accessibilityRole={'text'} 
+        accessibilityRole={AccessibilityRole.TEXT} 
       >
         Edit Task
       </Text>

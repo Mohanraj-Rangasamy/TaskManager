@@ -8,6 +8,7 @@ import {ReusableButton,ReusableTextInput} from "@components";
 import { useAppTheme } from "../context/ThemeContext";
 import { useTheme } from "react-native-paper";
 import { useDevice } from "../hooks";
+import { AccessibilityRole } from "../types/task";
 
 
 export default function SignIn() {
@@ -42,7 +43,7 @@ export default function SignIn() {
     <View style={[styles.container, { backgroundColor: colors.background }]}>
       <Text 
         accessible ={true}
-        accessibilityRole={'text'} 
+        accessibilityRole={AccessibilityRole.TEXT} 
         accessibilityLabel="Sign In" 
         style={styles.title}
       >
@@ -51,7 +52,7 @@ export default function SignIn() {
 
       {error ? <Text 
         accessible = {true}
-        accessibilityRole={'text'} 
+        accessibilityRole={AccessibilityRole.TEXT} 
         accessibilityLabel={error} 
         style={styles.error}
       >

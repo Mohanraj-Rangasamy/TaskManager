@@ -1,6 +1,7 @@
 import { View, Text, FlatList, StyleSheet } from "react-native";
 import { useErrors } from "../context/ErrorContext";
 import { useAuth } from "../hooks/useAuth";
+import { AccessibilityRole } from "../types/task";
 
 export default function ErrorsScreen({ navigation }) {
   const { errors } = useErrors();
@@ -16,7 +17,7 @@ export default function ErrorsScreen({ navigation }) {
       <Text 
         style={styles.errorText}
         accessible={true}
-        accessibilityRole={'text'}
+        accessibilityRole={AccessibilityRole.TEXT}
         accessibilityLabel="Logged Errors"
       >
         Logged Errors
@@ -34,7 +35,7 @@ export default function ErrorsScreen({ navigation }) {
               <Text 
                 style={styles.listTextOne}
                 accessible={true}
-                accessibilityRole={'text'}
+                accessibilityRole={AccessibilityRole.TEXT}
                 accessibilityLabel={item.message}
                 >
                   {item.message}
@@ -42,7 +43,7 @@ export default function ErrorsScreen({ navigation }) {
               <Text 
                 style={styles.listTextTwo}
                 accessible={true}
-                accessibilityRole={'text'}
+                accessibilityRole={AccessibilityRole.TEXT}
                 accessibilityLabel={item.time}
               >
                 {item.time}
