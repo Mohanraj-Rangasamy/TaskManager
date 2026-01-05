@@ -6,40 +6,18 @@ import i18n from "../../i18n";
 import { Platform } from "react-native";
 
 
-// jest.spyOn(Platform, "OS", "get").mockReturnValue("android");
-
-
 jest.mock("../../hooks/useAuth");
 jest.mock("../../context/ErrorContext");
-
 
 jest.mock("../../i18n", () => ({
   changeLanguage: jest.fn(),
 }));
-
 
 jest.mock("react-i18next", () => ({
   useTranslation: () => ({
     t: (key: string) => key, // return key as label
   }),
 }));
-
-
-jest.mock("../../components/Reusable_Button", () => {
-  return ({ title, onPress }: any) => (
-    <button onClick={onPress}>{title}</button>
-  );
-});
-
-jest.mock("../../components/Reusable_textInput", () => {
-  return ({ placeholder, value, onChangeText }: any) => (
-    <input
-      placeholder={placeholder}
-      value={value}
-      onChange={(e) => onChangeText(e.target.value)}
-    />
-  );
-});
 
 const mockSignIn = jest.fn();
 const mockLogError = jest.fn();

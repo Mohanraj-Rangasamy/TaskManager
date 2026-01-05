@@ -32,5 +32,6 @@ describe('EditScreen', () => {
      const {getByTestId} = render(<EditScreen navigation={navigation} route={{ params: { id: '123'} }} />);  
      const button = getByTestId('save-button');
      fireEvent.press(button);
+     expect(mockGoBack).toHaveBeenCalledTimes(1);
     })
 })
