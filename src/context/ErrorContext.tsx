@@ -7,25 +7,25 @@ export interface LoggedError {
 }
 
 interface ErrorContextType {
-  errors: LoggedError[];
+  error: LoggedError[];
   logError: (msg: string) => void;
 }
 
 const ErrorContext = createContext<ErrorContextType | undefined>(undefined);
 
 export const ErrorProvider = ({ children }: { children: ReactNode }) => {
-  const [errors, setErrors] = useState<LoggedError[]>([]);
+  const [error, setError] = useState<LoggedError[]>([]);
   const logError = (message: string) => {
     const newError = {
       id: Date.now().toString(),
       message,
       time: new Date().toISOString()
     };
-    setErrors(newError);
+    setError(prev => [newError, ...prev]);
   };
 
   return (
-    <ErrorContext.Provider value={{ errors, logError }}>
+    <ErrorContext.Provider value={{ error, logError }}>
       {children}
     </ErrorContext.Provider>
   );
