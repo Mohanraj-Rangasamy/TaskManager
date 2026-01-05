@@ -21,7 +21,7 @@ export const ErrorProvider = ({ children }: { children: ReactNode }) => {
       message,
       time: new Date().toISOString()
     };
-    setErrors(prev => [newError, ...prev]);
+    setErrors(newError);
   };
 
   return (

@@ -5,11 +5,12 @@ import { useTaskContext } from "../context/TaskContext";
 import { styles } from "./Task.Style";
 import ReusableButton from "../components/Reusable_Button";
 import ReusableTextInput from "../components/Reusable_textInput";
+import { getEnableNewUI } from "../services/remoteConfig";
 
 
 export default function Tasks({navigation}:any) {
-
-  const isFocused = useIsFocused()
+  const showNewUI = getEnableNewUI();
+  const isFocused = useIsFocused();
   const {
     tasks,
     addTask,
@@ -35,7 +36,7 @@ export default function Tasks({navigation}:any) {
   return (
     <View style={styles.container}>
       <Text style={styles.containerText}>Tasks</Text>
-
+      {showNewUI && <Text style={styles.newUITag}>New UI Enabled</Text>}
       <ReusableTextInput
         placeholder="New Task"
         value={input}
