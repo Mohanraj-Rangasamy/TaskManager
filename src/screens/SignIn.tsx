@@ -3,11 +3,15 @@ import { View, Text, StyleSheet, Platform,  TouchableOpacity } from "react-nativ
 import { useAuth } from "../hooks/useAuth";
 import { useErrors } from "../context/ErrorContext";
 import { useTranslation } from "react-i18next";
-import i18n from "../i18n";
-import ReusableButton from "../components/Reusable_Button";
-import ReusableTextInput from "../components/Reusable_textInput";
+import {i18n} from "../i18n";
+import {ReusableButton,ReusableTextInput} from "@components";
+import { useAppTheme } from "../context/ThemeContext";
+import { useTheme } from "react-native-paper";
+
 
 export default function SignIn() {
+  const { isDark, toggleTheme } = useAppTheme();
+  const { colors } = useTheme();
 
   const { t } = useTranslation();
 
@@ -33,7 +37,7 @@ export default function SignIn() {
   }
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { backgroundColor: colors.background }]}>
       <Text 
         accessible ={true}
         accessibilityRole={'text'} 
@@ -89,7 +93,10 @@ export default function SignIn() {
           onPress={() => i18n.changeLanguage("en")}
         />
       </View>
-    </View>
+      <ReusableButton  title={`Switch to ${isDark ? "Light" : "Dark"} Mode`}
+      onPress={toggleTheme}
+      />
+      </View>
   );
 }
 
